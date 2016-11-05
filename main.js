@@ -1,10 +1,10 @@
 var fileUtils = require('./fileUtils');
-var fileInput = process.argv[2];
+process.argv.splice(0, 2);
+var fileInputs = process.argv;
 
-if (fileInput) {
-  fileUtils.readFile(fileInput, function(err, data){
-    console.log(data);
+if (fileInputs.length > 1) {
+  var fileOutput = fileInputs.splice(-1, 1);
+  fileUtils.readFiles(fileInputs, function(err, data){
+    fileUtils.writeFile(fileOutput[0], data);
   });
-};
-
-//test
+}
